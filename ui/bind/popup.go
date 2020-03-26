@@ -7,8 +7,8 @@ import (
 	"fyne.io/fyne/driver/desktop"
 	"fyne.io/fyne/layout"
 	"fyne.io/fyne/widget"
-	"github.com/Minizbot2012/orbbind/keys"
-	"github.com/Minizbot2012/orbbind/ui/baseui"
+	"github.com/minizbot2012/orbbind/keys"
+	"github.com/minizbot2012/orbbind/ui/baseui"
 )
 
 //BindingInfo Genral data to use in a channel
