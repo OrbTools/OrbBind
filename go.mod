@@ -1,4 +1,4 @@
-module github.com/Minizbot2012/orbbind
+module github.com/minizbot2012/orbbind
 
 go 1.14
 
