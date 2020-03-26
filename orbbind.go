@@ -9,6 +9,7 @@ import (
 	"fyne.io/fyne/widget"
 	"github.com/Minizbot2012/orbbind/keymap/orbweaver"
 	"github.com/Minizbot2012/orbbind/ui/mainpage"
+	sidepage "github.com/Minizbot2012/orbbind/ui/side"
 )
 
 func main() {
@@ -17,7 +18,9 @@ func main() {
 	window.Resize(fyne.NewSize(480, 480))
 	omap := &orbweaver.PKM{}
 	nmp := mainpage.NewMainPage(window, omap)
+	nsp := sidepage.NewSidePage(window, omap)
 	tabs := widget.NewTabContainer(nmp.Create())
+	tabs.Append(nsp.Create())
 	tabs.Resize(window.Content().Size())
 	window.SetMainMenu(fyne.NewMainMenu(fyne.NewMenu("File", fyne.NewMenuItem("Save", func() {
 		dialog.ShowFileSave(func(p string) {
@@ -27,6 +30,7 @@ func main() {
 		dialog.ShowFileOpen(func(p string) {
 			omap = orbweaver.LoadFile(p)
 			nmp.SetBindings(omap)
+			nsp.SetBindings(omap)
 		}, window)
 	}))))
 	window.SetContent(tabs)

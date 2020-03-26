@@ -24,7 +24,7 @@ func (mp *Page) createButtons() {
 	for i := 0; i < 4; i++ {
 		for j := 0; j < 5; j++ {
 			id := (j + i*5 + 1)
-			mp.dev["B"+strconv.Itoa(id)] = widget.NewButton(strconv.Itoa((j+i*5)+1), func() {
+			mp.dev["B"+strconv.Itoa(id)] = widget.NewButton(strconv.Itoa(id), func() {
 				popup := bind.NewBindPage(id, mp.parent, mp.binds.MIP[id-1])
 				dialog.ShowCustomConfirm("Binding", "Set", "Cancel", popup.Create(string(id)), func(b bool) {
 					if b {
@@ -33,7 +33,6 @@ func (mp *Page) createButtons() {
 				}, mp.parent)
 			})
 			mp.dev["V"].(*fyne.Container).AddObject(mp.dev["B"+strconv.Itoa(id)])
-
 		}
 	}
 }
