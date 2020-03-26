@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/Minizbot2012/orbbind/keys"
+	"github.com/minizbot2012/orbbind/keys"
 )
 
 //PKM format for altering the keymap

@@ -3,7 +3,7 @@ package keys
 import (
 	"encoding/json"
 
-	"github.com/Minizbot2012/orbbind/box"
+	"github.com/minizbot2012/orbbind/box"
 )
 
 //Key Codes Map

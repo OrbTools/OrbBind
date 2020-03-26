@@ -7,9 +7,9 @@ import (
 	"fyne.io/fyne/dialog"
 	"fyne.io/fyne/layout"
 	"fyne.io/fyne/widget"
-	"github.com/Minizbot2012/orbbind/keymap/orbweaver"
-	"github.com/Minizbot2012/orbbind/ui/baseui"
-	"github.com/Minizbot2012/orbbind/ui/bind"
+	"github.com/minizbot2012/orbbind/keymap/orbweaver"
+	"github.com/minizbot2012/orbbind/ui/baseui"
+	"github.com/minizbot2012/orbbind/ui/bind"
 )
 
 //Page Overweave side button configs
