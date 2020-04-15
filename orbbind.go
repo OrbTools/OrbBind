@@ -9,7 +9,7 @@ import (
 	"fyne.io/fyne/widget"
 	"github.com/minizbot2012/orbbind/keymap/orbweaver"
 	"github.com/minizbot2012/orbbind/ui/mainpage"
-	sidepage "github.com/minizbot2012/orbbind/ui/side"
+	"github.com/minizbot2012/orbbind/ui/sidepage"
 )
 
 func main() {
