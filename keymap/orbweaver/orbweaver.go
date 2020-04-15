@@ -2,7 +2,6 @@ package orbweaver
 
 import (
 	"encoding/binary"
-	"log"
 	"os"
 
 	"github.com/minizbot2012/orbbind/keys"
