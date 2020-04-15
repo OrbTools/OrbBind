@@ -42,7 +42,6 @@ func LoadFile(file string) *PKM {
 		b := make([]byte, 2)
 		inf.Read(b)
 		Asc := keys.GetASCIIForSC(int(binary.LittleEndian.Uint16(b)))
-		log.Println(Asc)
 		if i < 26 {
 			if i < 20 {
 				mapped.MIP[i] = Asc
