@@ -27,9 +27,11 @@ func main() {
 		}, window)
 	}), fyne.NewMenuItem("Load", func() {
 		dialog.ShowFileOpen(func(p string) {
-			omap = orbweaver.LoadFile(p)
-			nmp.SetBindings(omap)
-			nsp.SetBindings(omap)
+			if p != "" {
+				omap = orbweaver.LoadFile(p)
+				nmp.SetBindings(omap)
+				nsp.SetBindings(omap)
+			}
 		}, window)
 	}))))
 	window.SetContent(tabs)
