@@ -19,8 +19,7 @@ func main() {
 	omap := &orbweaver.PKM{}
 	nmp := mainpage.NewMainPage(window, omap)
 	nsp := sidepage.NewSidePage(window, omap)
-	tabs := widget.NewTabContainer(nmp.Create())
-	tabs.Append(nsp.Create())
+	tabs := widget.NewTabContainer(nmp.Create(), nsp.Create())
 	tabs.Resize(window.Content().Size())
 	window.SetMainMenu(fyne.NewMainMenu(fyne.NewMenu("File", fyne.NewMenuItem("Save", func() {
 		dialog.ShowFileSave(func(p string) {
