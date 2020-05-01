@@ -8,6 +8,7 @@ import (
 	"fyne.io/fyne/dialog"
 	"fyne.io/fyne/widget"
 	"github.com/minizbot2012/orbbind/keymap/orbweaver"
+	"github.com/minizbot2012/orbbind/ui/baseui"
 	"github.com/minizbot2012/orbbind/ui/mainpage"
 	"github.com/minizbot2012/orbbind/ui/sidepage"
 )
@@ -15,25 +16,60 @@ import (
 func main() {
 	ap := app.NewWithID("com.minizbot2012.orbbind")
 	window := ap.NewWindow("Orbweaver Rebinding")
-	window.Resize(fyne.NewSize(480, 480))
+	window.SetMaster()
+
 	omap := &orbweaver.PKM{}
-	nmp := mainpage.NewMainPage(window, omap)
-	nsp := sidepage.NewSidePage(window, omap)
-	tabs := widget.NewTabContainer(nmp.Create(), nsp.Create())
-	tabs.Resize(window.Content().Size())
-	window.SetMainMenu(fyne.NewMainMenu(fyne.NewMenu("File", fyne.NewMenuItem("Save", func() {
-		dialog.ShowFileSave(func(p string) {
-			orbweaver.SaveIntoKeymap(omap, p)
-		}, window)
-	}), fyne.NewMenuItem("Load", func() {
-		dialog.ShowFileOpen(func(p string) {
-			if p != "" {
-				omap = orbweaver.LoadFile(p)
-				nmp.SetBindings(omap)
-				nsp.SetBindings(omap)
+	pages := make(map[string]baseui.PageWithBindings)
+	pages["main"] = mainpage.NewMainPage(window, omap)
+	pages["side"] = sidepage.NewSidePage(window, omap)
+	tabs := widget.NewTabContainer(pages["main"].Create(), pages["side"].Create())
+	tabs.Resize(fyne.NewSize(640, 480))
+	dmenu := widget.NewHBox(widget.NewButton("Save", func() {
+		dialog.ShowFileSave(func(writer fyne.FileWriteCloser, err error) {
+			if err != nil {
+				dialog.ShowError(err, window)
+				return
+			}
+			if writer != nil {
+				orbweaver.SaveIntoKeymap(omap, writer)
 			}
 		}, window)
-	}))))
-	window.SetContent(tabs)
+	}), widget.NewButton("Load", func() {
+		dialog.ShowFileOpen(func(reader fyne.FileReadCloser, err error) {
+			if err != nil {
+				dialog.ShowError(err, window)
+				return
+			}
+			if reader != nil {
+				omap = orbweaver.LoadFile(reader)
+				pages["main"].SetBindings(omap)
+				pages["side"].SetBindings(omap)
+			}
+		}, window)
+	}))
+	main := widget.NewVBox(dmenu, tabs)
+	window.Resize(fyne.NewSize(640, 500))
+	/*mainMenu := fyne.NewMainMenu(fyne.NewMenu("File", fyne.NewMenuItem("Save", func() {
+		dialog.ShowFileSave(func(writer fyne.FileWriteCloser, err error) {
+			if err != nil {
+				dialog.ShowError(err, window)
+				return
+			}
+			orbweaver.SaveIntoKeymap(omap, writer)
+		}, window)
+	}), fyne.NewMenuItem("Load", func() {
+		dialog.ShowFileOpen(func(reader fyne.FileReadCloser, err error) {
+			if err != nil {
+				dialog.ShowError(err, window)
+				return
+			}
+			omap = orbweaver.LoadFile(reader)
+			pages["main"].SetBindings(omap)
+			pages["side"].SetBindings(omap)
+		}, window)
+	})))
+	window.SetMainMenu(mainMenu)
+	*/
+	window.SetContent(main)
 	window.ShowAndRun()
 }

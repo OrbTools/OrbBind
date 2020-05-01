@@ -2,8 +2,8 @@ package orbweaver
 
 import (
 	"encoding/binary"
-	"os"
 
+	"fyne.io/fyne"
 	"github.com/minizbot2012/orbbind/keys"
 )
 
@@ -15,8 +15,7 @@ type PKM struct {
 }
 
 //SaveIntoKeymap saves an orb
-func SaveIntoKeymap(mapped *PKM, path string) {
-	fil, _ := os.OpenFile(path, os.O_RDWR, 0)
+func SaveIntoKeymap(mapped *PKM, file fyne.FileWriteCloser) {
 	for i := 0; i < 26; i++ {
 		if i < 26 {
 			buf := make([]byte, 2)
@@ -25,21 +24,21 @@ func SaveIntoKeymap(mapped *PKM, path string) {
 			} else {
 				binary.LittleEndian.PutUint16(buf, uint16(keys.GetSCForASCII(int(byte(mapped.SIP[i-20])))))
 			}
-			fil.Write(buf)
+			file.Write(buf)
 		} else {
 			arr := []byte{byte(mapped.COL[0]), byte(mapped.COL[1]), byte(mapped.COL[2])}
-			fil.Write(arr)
+			file.Write(arr)
 		}
 	}
+	file.Close()
 }
 
 //LoadFile loads an orb
-func LoadFile(file string) *PKM {
+func LoadFile(file fyne.FileReadCloser) *PKM {
 	mapped := &PKM{}
-	inf, _ := os.Open(file)
 	for i := 0; i < 26; i++ {
 		b := make([]byte, 2)
-		inf.Read(b)
+		file.Read(b)
 		Asc := keys.GetASCIIForSC(int(binary.LittleEndian.Uint16(b)))
 		if i < 26 {
 			if i < 20 {
@@ -50,10 +49,10 @@ func LoadFile(file string) *PKM {
 		}
 	}
 	b := make([]byte, 3)
-	inf.Read(b)
+	file.Read(b)
 	mapped.COL[0] = int(b[0])
 	mapped.COL[1] = int(b[1])
 	mapped.COL[2] = int(b[2])
-	inf.Close()
+	file.Close()
 	return mapped
 }

@@ -14,7 +14,7 @@ type BasicPage interface {
 //PageWithBindings defines a page with bindings
 type PageWithBindings interface {
 	BasicPage
-	SetBinding(*orbweaver.PKM)
+	SetBindings(*orbweaver.PKM)
 }
 
 //DialogPage is a dialog popup
