@@ -32,7 +32,9 @@ func main() {
 				dialog.ShowError(err, window)
 				return
 			}
-			orbweaver.SaveIntoKeymap(omap, writer)
+			if writer != nil {
+				orbweaver.SaveIntoKeymap(omap, writer)
+			}
 		}, window)
 	}), fyne.NewMenuItem("Load", func() {
 		dialog.ShowFileOpen(func(reader fyne.FileReadCloser, err error) {
@@ -40,9 +42,11 @@ func main() {
 				dialog.ShowError(err, window)
 				return
 			}
-			omap = orbweaver.LoadFile(reader)
-			pages["main"].SetBindings(omap)
-			pages["side"].SetBindings(omap)
+			if reader != nil {
+				omap = orbweaver.LoadFile(reader)
+				pages["main"].SetBindings(omap)
+				pages["side"].SetBindings(omap)
+			}
 		}, window)
 	})))
 	window.SetMainMenu(mainMenu)
