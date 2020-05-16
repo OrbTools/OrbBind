@@ -2,6 +2,7 @@ package orbweaver
 
 import (
 	"encoding/binary"
+	"fmt"
 
 	"fyne.io/fyne"
 	"github.com/minizbot2012/orbbind/keys"
@@ -16,20 +17,18 @@ type PKM struct {
 
 //SaveIntoKeymap saves an orb
 func SaveIntoKeymap(mapped *PKM, file fyne.FileWriteCloser) {
+	buf := make([]byte, 2)
 	for i := 0; i < 26; i++ {
-		if i < 26 {
-			buf := make([]byte, 2)
-			if i < 20 {
-				binary.LittleEndian.PutUint16(buf, uint16(keys.GetSCForASCII(int(byte(mapped.MIP[i])))))
-			} else {
-				binary.LittleEndian.PutUint16(buf, uint16(keys.GetSCForASCII(int(byte(mapped.SIP[i-20])))))
-			}
-			file.Write(buf)
+		if i < 20 {
+			binary.LittleEndian.PutUint16(buf, uint16(keys.GetSCForASCII(int(byte(mapped.MIP[i])))))
 		} else {
-			arr := []byte{byte(mapped.COL[0]), byte(mapped.COL[1]), byte(mapped.COL[2])}
-			file.Write(arr)
+			binary.LittleEndian.PutUint16(buf, uint16(keys.GetSCForASCII(int(byte(mapped.SIP[i-20])))))
 		}
+		fmt.Println(i, buf)
+		file.Write(buf)
 	}
+	arr := []byte{byte(mapped.COL[0]), byte(mapped.COL[1]), byte(mapped.COL[2])}
+	file.Write(arr)
 	file.Close()
 }
 
