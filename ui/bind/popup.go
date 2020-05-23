@@ -1,8 +1,6 @@
 package bind
 
 import (
-	"strings"
-
 	"fyne.io/fyne"
 	"fyne.io/fyne/driver/desktop"
 	"fyne.io/fyne/layout"
@@ -27,18 +25,14 @@ type Page struct {
 
 //TypeKey event on key
 func (bp *Page) TypeKey(e *fyne.KeyEvent) {
-	if keys.CKIDetControl(e.Name) {
-		kp := keys.CKIDetName(e.Name)
-		bp.Bind.Bound = keys.CKIFyneKeyMap(e.Name)
+	bp.Bind.Bound = keys.CKIFyneKeyMap(e.Name)
+	if !keys.CKIDetControl(e.Name) {
+		kp := keys.ASCIIToCommon[int(e.Name[0])]
+		bp.dev["BL"].(*widget.Label).SetText(kp)
+	} else {
+		kp := string(e.Name)
 		bp.dev["BL"].(*widget.Label).SetText(kp)
 	}
-}
-
-//TypeRune event one rune type
-func (bp *Page) TypeRune(key rune) {
-	kp := int(string(strings.ToUpper(string(key)))[0])
-	bp.Bind.Bound = kp
-	bp.dev["BL"].(*widget.Label).SetText(keys.CKIName(bp.Bind.Bound))
 }
 
 func (bp *Page) createGrid() *fyne.Container {
@@ -69,7 +63,6 @@ func (bp *Page) Create(bid string) fyne.CanvasObject {
 	bp.dev = make(map[string]fyne.CanvasObject)
 	bp.dev["BL"] = widget.NewLabel(keys.CKIName(bp.Bind.Bound))
 	pop := widget.NewVBox(bp.dev["BL"], bp.createGrid())
-	bp.window.Canvas().SetOnTypedRune(bp.TypeRune)
 	bp.window.Canvas().SetOnTypedKey(bp.TypeKey)
 	return pop
 }
