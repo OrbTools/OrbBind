@@ -74,7 +74,7 @@ func CKIFyneKeyMap(e fyne.KeyName) int {
 	case desktop.KeyShiftRight:
 		return CommonToASCII["KEY_RIGHTSHIFT"]
 	default:
-		return int(e[0])
+		return CommonToASCII["KEY_"+string(e)]
 	}
 }
 
