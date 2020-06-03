@@ -61,7 +61,7 @@ func (bp *Page) createGrid() *fyne.Container {
 //Create the binding page popup
 func (bp *Page) Create(bid string) fyne.CanvasObject {
 	bp.dev = make(map[string]fyne.CanvasObject)
-	bp.dev["BL"] = widget.NewLabel(keys.ASCIIToCommon(bp.Bind.Bound))
+	bp.dev["BL"] = widget.NewLabel(keys.ASCIIToCommon[bp.Bind.Bound])
 	pop := widget.NewVBox(bp.dev["BL"], bp.createGrid())
 	bp.window.Canvas().SetOnTypedKey(bp.TypeKey)
 	return pop
