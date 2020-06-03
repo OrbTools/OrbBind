@@ -19,9 +19,9 @@ func SaveIntoKeymap(mapped *PKM, file fyne.FileWriteCloser) {
 	buf := make([]byte, 2)
 	for i := 0; i < 26; i++ {
 		if i < 20 {
-			binary.LittleEndian.PutUint16(buf, uint16(keys.GetSCForASCII(int(byte(mapped.MIP[i])))))
+			binary.LittleEndian.PutUint16(buf, uint16(keys.GetSCForASCII(int(mapped.MIP[i]))))
 		} else {
-			binary.LittleEndian.PutUint16(buf, uint16(keys.GetSCForASCII(int(byte(mapped.SIP[i-20])))))
+			binary.LittleEndian.PutUint16(buf, uint16(keys.GetSCForASCII(int(mapped.SIP[i-20]))))
 		}
 		file.Write(buf)
 	}
