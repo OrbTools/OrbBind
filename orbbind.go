@@ -27,7 +27,7 @@ func main() {
 	main := tabs
 	window.Resize(fyne.NewSize(640, 500))
 	mainMenu := fyne.NewMainMenu(fyne.NewMenu("File", fyne.NewMenuItem("Save", func() {
-		dialog.ShowFileSave(func(writer fyne.FileWriteCloser, err error) {
+		dialog.ShowFileSave(func(writer fyne.URIWriteCloser, err error) {
 			if err != nil {
 				dialog.ShowError(err, window)
 				return
@@ -37,7 +37,7 @@ func main() {
 			}
 		}, window)
 	}), fyne.NewMenuItem("Load", func() {
-		dialog.ShowFileOpen(func(reader fyne.FileReadCloser, err error) {
+		dialog.ShowFileOpen(func(reader fyne.URIReadCloser, err error) {
 			if err != nil {
 				dialog.ShowError(err, window)
 				return
