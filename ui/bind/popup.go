@@ -26,7 +26,7 @@ type Page struct {
 //TypeKey event on key
 func (bp *Page) TypeKey(e *fyne.KeyEvent) {
 	bp.Bind.Bound = keys.CKIFyneKeyMap(e.Name)
-	if !keys.CKIDetControl(e.Name) {
+	if !keys.CKIFIsCMPLX(e.Name) {
 		kp := keys.ASCIIToCommon[int(e.Name[0])]
 		bp.dev["BL"].(*widget.Label).SetText(kp)
 	} else {
@@ -61,11 +61,10 @@ func (bp *Page) createGrid() *fyne.Container {
 //Create the binding page popup
 func (bp *Page) Create(bid string) fyne.CanvasObject {
 	bp.dev = make(map[string]fyne.CanvasObject)
-	cmn := len(keys.ASCIIToCommon[bp.Bind.Bound])
-	if cmn == 5 {
-		bp.dev["BL"] = widget.NewLabel(string(keys.ASCIIToCommon[bp.Bind.Bound][cmn-1]))
-	} else {
+	if keys.CKIAIsCMPLX(bp.Bind.Bound) {
 		bp.dev["BL"] = widget.NewLabel(string(keys.ASCIIToCommon[bp.Bind.Bound]))
+	} else {
+		bp.dev["BL"] = widget.NewLabel(keys.CKIName(bp.Bind.Bound))
 	}
 	pop := widget.NewVBox(bp.dev["BL"], bp.createGrid())
 	bp.window.Canvas().SetOnTypedKey(bp.TypeKey)
