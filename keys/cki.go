@@ -2,6 +2,7 @@ package keys
 
 import (
 	"fmt"
+	"strings"
 
 	"fyne.io/fyne"
 )
@@ -24,7 +25,7 @@ func CKIFyneKeyMap(e fyne.KeyName) int {
 	if val, ok := FyneToASCII[e]; ok {
 		return val
 	}
-	return CommonToASCII["KEY_"+string(e)]
+	return CommonToASCII["KEY_"+strings.ToUpper(string(e))]
 }
 
 //CKICommonName returns common name for ascii
