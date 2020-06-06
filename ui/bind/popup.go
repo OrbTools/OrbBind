@@ -26,7 +26,7 @@ type Page struct {
 //TypeKey event on key
 func (bp *Page) TypeKey(e *fyne.KeyEvent) {
 	bp.Bind.Bound = keys.CKIFyneKeyMap(e.Name)
-	if !keys.CKIFIsCMPLX(e.Name) {
+	if keys.CKIFIsCMPLX(e.Name) {
 		kp := keys.ASCIIToCommon[int(e.Name[0])]
 		bp.dev["BL"].(*widget.Label).SetText(kp)
 	} else {
