@@ -15,7 +15,7 @@ type PKM struct {
 }
 
 //SaveIntoKeymap saves an orb
-func SaveIntoKeymap(mapped *PKM, file fyne.FileWriteCloser) {
+func SaveIntoKeymap(mapped *PKM, file fyne.URIWriteCloser) {
 	buf := make([]byte, 2)
 	for i := 0; i < 26; i++ {
 		if i < 20 {
@@ -31,7 +31,7 @@ func SaveIntoKeymap(mapped *PKM, file fyne.FileWriteCloser) {
 }
 
 //LoadFile loads an orb
-func LoadFile(file fyne.FileReadCloser) *PKM {
+func LoadFile(file fyne.URIReadCloser) *PKM {
 	mapped := &PKM{}
 	for i := 0; i < 26; i++ {
 		b := make([]byte, 2)
