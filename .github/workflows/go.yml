@@ -29,7 +29,9 @@ jobs:
         path: ./src/github.com/${{ github.repository }}
 
     - name: Mod Tidy
-      run: go mod tidy
+      run: |
+        ls
+        go mod tidy
 
     - name: Build
       run: go build -v .
