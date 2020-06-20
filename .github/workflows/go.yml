@@ -30,7 +30,7 @@ jobs:
 
     - name: Mod Tidy
       run: |
-        ls
+        cd ./src/github.com/${{ github.repository }}
         go mod tidy
 
     - name: Build
