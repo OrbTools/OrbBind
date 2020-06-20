@@ -28,7 +28,7 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        apt-get install libx11-dev
+        sudo apt-get install libx11-dev
         go mod init
         go mod tidy
       working-directory: ${{ env.CDIR }}
