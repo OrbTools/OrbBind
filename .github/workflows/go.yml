@@ -37,11 +37,10 @@ jobs:
       working-directory: ${{ env.CDIR }}
 
     - uses: "marvinpinto/action-automatic-releases@latest"
-      working-directory: ${{ env.CDIR }}
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         automatic_release_tag: "latest"
         prerelease: true
         title: "Development Build"
         files: |
-          orbbind
+          ${{ env.CDIR }}/orbbind
