@@ -28,7 +28,7 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        sudo apt-get install xorg-dev libglfw-dev
+        sudo apt-get install xorg-dev libgl1-mesa-dev
         go mod init
         go mod tidy
       working-directory: ${{ env.CDIR }}
