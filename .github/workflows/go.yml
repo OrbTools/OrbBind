@@ -11,12 +11,10 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    steps: 
-    - name: set environment variables
-      uses: allenevans/set-env@v1.0.0
-      with:
+    env:
         GOPATH: ${{ github.workspace }}
-
+        CDIR: ./src/github.com/${{ github.repository }}
+    steps;
     - name: Set up Go 1.x
       uses: actions/setup-go@v2
       with:
@@ -30,12 +28,13 @@ jobs:
 
     - name: Mod Tidy
       run: |
-        cd ./src/github.com/${{ github.repository }}
         go mod init
         go mod tidy
+      working-directory: ${{ env.CDIR }}
 
     - name: Build
       run: go build -v .
+      working-directory: ${{ env.CDIR }}
 
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
@@ -45,3 +44,4 @@ jobs:
         title: "Development Build"
         files: |
           orbbind
+      working-directory: ${{ env.CDIR }}
