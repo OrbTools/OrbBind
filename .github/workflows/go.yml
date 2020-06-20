@@ -18,28 +18,28 @@ jobs:
         GOPATH: ${{ github.workspace }}
         GO111MODULE: off
 
-     - name: Set up Go 1.x
-       uses: actions/setup-go@v2
-       with:
-         go-version: ^1.14
-       id: go
+    - name: Set up Go 1.x
+      uses: actions/setup-go@v2
+      with:
+        go-version: ^1.14
+      id: go
 
-     - name: Check out code into the Go module directory
-       uses: actions/checkout@v2
-       with:
-         path: ./src/github.com/${{ github.repository }}
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+      with:
+        path: ./src/github.com/${{ github.repository }}
 
-     - name: Mod Tidy
-       run: go mod tidy
+    - name: Mod Tidy
+      run: go mod tidy
 
-     - name: Build
-       run: go build -v .
+    - name: Build
+      run: go build -v .
 
-     - uses: "marvinpinto/action-automatic-releases@latest"
-       with:
-         repo_token: "${{ secrets.GITHUB_TOKEN }}"
-         automatic_release_tag: "latest"
-         prerelease: true
-         title: "Development Build"
-         files: |
-           orbbind
+    - uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: true
+        title: "Development Build"
+        files: |
+          orbbind
