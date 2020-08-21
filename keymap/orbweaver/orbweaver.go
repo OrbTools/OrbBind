@@ -9,8 +9,8 @@ import (
 
 //PKM format for altering the keymap
 type PKM struct {
-	MIP [20]int
-	SIP [6]int
+	MIP [20]uint16
+	SIP [6]uint16
 	COL [3]int
 }
 
@@ -19,9 +19,9 @@ func SaveIntoKeymap(mapped *PKM, file fyne.URIWriteCloser) {
 	buf := make([]byte, 2)
 	for i := 0; i < 26; i++ {
 		if i < 20 {
-			binary.LittleEndian.PutUint16(buf, uint16(keys.GetSCForASCII(int(mapped.MIP[i]))))
+			binary.LittleEndian.PutUint16(buf, uint16(keys.GetSCForASCII(mapped.MIP[i])))
 		} else {
-			binary.LittleEndian.PutUint16(buf, uint16(keys.GetSCForASCII(int(mapped.SIP[i-20]))))
+			binary.LittleEndian.PutUint16(buf, uint16(keys.GetSCForASCII(mapped.SIP[i-20])))
 		}
 		file.Write(buf)
 	}
@@ -36,7 +36,8 @@ func LoadFile(file fyne.URIReadCloser) *PKM {
 	for i := 0; i < 26; i++ {
 		b := make([]byte, 2)
 		file.Read(b)
-		Asc := keys.GetASCIIForSC(int(binary.LittleEndian.Uint16(b)))
+		Asc := keys.GetASCIIForSC(binary.LittleEndian.Uint16(b))
+		println(string(Asc))
 		if i < 26 {
 			if i < 20 {
 				mapped.MIP[i] = Asc

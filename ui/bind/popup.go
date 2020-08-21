@@ -12,7 +12,7 @@ import (
 //BindingInfo Genral data to use in a channel
 type BindingInfo struct {
 	Bindid int
-	Bound  int
+	Bound  uint16
 }
 
 //Page Binding UI
@@ -26,19 +26,14 @@ type Page struct {
 //TypeKey event on key
 func (bp *Page) TypeKey(e *fyne.KeyEvent) {
 	bp.Bind.Bound = keys.CKIFyneKeyMap(e.Name)
-	if keys.CKIFIsCMPLX(e.Name) {
-		kp := keys.CKICommonName(bp.Bind.Bound)
-		bp.dev["BL"].(*widget.Label).SetText(kp)
-	} else {
-		kp := string(e.Name)
-		bp.dev["BL"].(*widget.Label).SetText(kp)
-	}
+	kp := keys.CKIKeyNameFromASCII(bp.Bind.Bound)
+	bp.dev["BL"].(*widget.Label).SetText(kp)
 }
 
 func (bp *Page) createGrid() *fyne.Container {
 	cont := fyne.NewContainerWithLayout(layout.NewGridLayoutWithColumns(3))
 	cont.AddObject(widget.NewButton("Clear", func() {
-		bp.dev["BL"].(*widget.Label).SetText(keys.CKIName(0))
+		bp.dev["BL"].(*widget.Label).SetText(keys.CKIKeyNameFromKC(0))
 		bp.Bind.Bound = 0x0
 	}))
 	k1 := widget.NewButton("Tab", func() { bp.TypeKey(&fyne.KeyEvent{Name: fyne.KeyTab}) })
@@ -61,18 +56,14 @@ func (bp *Page) createGrid() *fyne.Container {
 //Create the binding page popup
 func (bp *Page) Create(bid string) fyne.CanvasObject {
 	bp.dev = make(map[string]fyne.CanvasObject)
-	if keys.CKIAIsCMPLX(bp.Bind.Bound) {
-		bp.dev["BL"] = widget.NewLabel(string(keys.ASCIIToCommon[bp.Bind.Bound]))
-	} else {
-		bp.dev["BL"] = widget.NewLabel(keys.CKIName(bp.Bind.Bound))
-	}
+	bp.dev["BL"] = widget.NewLabel(keys.CKIKeyNameFromASCII(bp.Bind.Bound))
 	pop := widget.NewVBox(bp.dev["BL"], bp.createGrid())
 	bp.window.Canvas().SetOnTypedKey(bp.TypeKey)
 	return pop
 }
 
 //NewBindPage Create a new bind popup
-func NewBindPage(bid int, w fyne.Window, def int) *Page {
+func NewBindPage(bid int, w fyne.Window, def uint16) *Page {
 	p := &Page{}
 	p.window = w
 	p.Bind.Bindid = bid
