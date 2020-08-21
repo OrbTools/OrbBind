@@ -1,9 +1,6 @@
 package keys
 
 import (
-	"fmt"
-	"strconv"
-
 	"fyne.io/fyne"
 )
 
@@ -25,7 +22,6 @@ func GetSCForASCII(r uint16) uint16 {
 func init() {
 	KCToASCII = make(map[Code]rune)
 	for x, y := range ASCIIToKC {
-		fmt.Println(string(x) + ":" + strconv.Itoa(int(y)))
 		KCToASCII[y] = x
 	}
 }
