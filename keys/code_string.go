@@ -8,6 +8,7 @@ func _() {
 	// An "invalid array index" compiler error signifies that the constant values have changed.
 	// Re-run the stringer command to generate them again.
 	var x [1]struct{}
+	_ = x[CodeNone-0]
 	_ = x[CodeESC-1]
 	_ = x[Code1-2]
 	_ = x[Code2-3]
@@ -110,7 +111,7 @@ func _() {
 }
 
 const (
-	_Code_name_0 = "CodeESCCode1Code2Code3Code4Code5Code6Code7Code8Code9Code0CodeMinusCodeEqualCodeBackspaceCodeTabCodeQCodeWCodeECodeRCodeTCodeYCodeUCodeICodeOCodePCodeLeftBrackCodeRightBraceCodeEnterCodeLeftCntlCodeACodeSCodeDCodeFCodeGCodeHCodeJCodeKCodeLCodeSemicolonCodeApostropheCodeGraveCodeLeftShiftCodeBackslashCodeZCodeXCodeCCodeVCodeBCodeNCodeMCodeCommaCodeDotCodeSlashCodeRightShiftCodeKPAsteriskCodeLeftAltCodeSpaceCodeCapsLockCodeF1CodeF2CodeF3CodeF4CodeF5CodeF6CodeF7CodeF8CodeF9CodeF10CodeNumlockCodeScrollLockCodeKP7CodeKP8CodeKP9CodeKPMinusCodeKP4CodeKP5CodeKP6CodeKPPlusCodeKP1CodeKP2CodeKP3CodeKP0CodeKPDot"
+	_Code_name_0 = "CodeNoneCodeESCCode1Code2Code3Code4Code5Code6Code7Code8Code9Code0CodeMinusCodeEqualCodeBackspaceCodeTabCodeQCodeWCodeECodeRCodeTCodeYCodeUCodeICodeOCodePCodeLeftBrackCodeRightBraceCodeEnterCodeLeftCntlCodeACodeSCodeDCodeFCodeGCodeHCodeJCodeKCodeLCodeSemicolonCodeApostropheCodeGraveCodeLeftShiftCodeBackslashCodeZCodeXCodeCCodeVCodeBCodeNCodeMCodeCommaCodeDotCodeSlashCodeRightShiftCodeKPAsteriskCodeLeftAltCodeSpaceCodeCapsLockCodeF1CodeF2CodeF3CodeF4CodeF5CodeF6CodeF7CodeF8CodeF9CodeF10CodeNumlockCodeScrollLockCodeKP7CodeKP8CodeKP9CodeKPMinusCodeKP4CodeKP5CodeKP6CodeKPPlusCodeKP1CodeKP2CodeKP3CodeKP0CodeKPDot"
 	_Code_name_1 = "CodeF11CodeF12"
 	_Code_name_2 = "CodeKPEnterCodeRightControlCodeKPSlash"
 	_Code_name_3 = "CodeRightAlt"
@@ -118,7 +119,7 @@ const (
 )
 
 var (
-	_Code_index_0 = [...]uint16{0, 7, 12, 17, 22, 27, 32, 37, 42, 47, 52, 57, 66, 75, 88, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 158, 172, 181, 193, 198, 203, 208, 213, 218, 223, 228, 233, 238, 251, 265, 274, 287, 300, 305, 310, 315, 320, 325, 330, 335, 344, 351, 360, 374, 388, 399, 408, 420, 426, 432, 438, 444, 450, 456, 462, 468, 474, 481, 492, 506, 513, 520, 527, 538, 545, 552, 559, 569, 576, 583, 590, 597, 606}
+	_Code_index_0 = [...]uint16{0, 8, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 74, 83, 96, 103, 108, 113, 118, 123, 128, 133, 138, 143, 148, 153, 166, 180, 189, 201, 206, 211, 216, 221, 226, 231, 236, 241, 246, 259, 273, 282, 295, 308, 313, 318, 323, 328, 333, 338, 343, 352, 359, 368, 382, 396, 407, 416, 428, 434, 440, 446, 452, 458, 464, 470, 476, 482, 489, 500, 514, 521, 528, 535, 546, 553, 560, 567, 577, 584, 591, 598, 605, 614}
 	_Code_index_1 = [...]uint8{0, 7, 14}
 	_Code_index_2 = [...]uint8{0, 11, 27, 38}
 	_Code_index_4 = [...]uint8{0, 8, 19, 29, 42, 56, 63, 76, 88, 98, 108}
@@ -126,8 +127,7 @@ var (
 
 func (i Code) String() string {
 	switch {
-	case 1 <= i && i <= 83:
-		i -= 1
+	case i <= 83:
 		return _Code_name_0[_Code_index_0[i]:_Code_index_0[i+1]]
 	case 87 <= i && i <= 88:
 		i -= 87

@@ -26,29 +26,24 @@ type Page struct {
 //TypeKey event on key
 func (bp *Page) TypeKey(e *fyne.KeyEvent) {
 	bp.Bind.Bound = keys.CKIFyneKeyMap(e.Name)
-	kp := keys.CKIKeyNameFromASCII(bp.Bind.Bound)
+	kp := keys.CKIKeyNameFromKC(bp.Bind.Bound)
 	bp.dev["BL"].(*widget.Label).SetText(kp)
 }
 
 func (bp *Page) createGrid() *fyne.Container {
-	cont := fyne.NewContainerWithLayout(layout.NewGridLayoutWithColumns(3))
+	cont := fyne.NewContainerWithLayout(layout.NewGridLayoutWithColumns(4))
 	cont.AddObject(widget.NewButton("Clear", func() {
-		bp.dev["BL"].(*widget.Label).SetText(keys.CKIKeyNameFromKC(0))
 		bp.Bind.Bound = 0x0
+		bp.dev["BL"].(*widget.Label).SetText(keys.CKIKeyNameFromKC(bp.Bind.Bound))
 	}))
 	k1 := widget.NewButton("Tab", func() { bp.TypeKey(&fyne.KeyEvent{Name: fyne.KeyTab}) })
-	k2 := widget.NewButton("Left Alt", func() { bp.TypeKey(&fyne.KeyEvent{Name: desktop.KeyAltLeft}) })
-	k3 := widget.NewButton("Right Alt", func() { bp.TypeKey(&fyne.KeyEvent{Name: desktop.KeyAltRight}) })
-	k4 := widget.NewButton("Left Control", func() { bp.TypeKey(&fyne.KeyEvent{Name: desktop.KeyControlLeft}) })
-	k5 := widget.NewButton("Right Contorl", func() { bp.TypeKey(&fyne.KeyEvent{Name: desktop.KeyControlRight}) })
-	k6 := widget.NewButton("Left Shift", func() { bp.TypeKey(&fyne.KeyEvent{Name: desktop.KeyShiftLeft}) })
-	k7 := widget.NewButton("Right Shift", func() { bp.TypeKey(&fyne.KeyEvent{Name: desktop.KeyShiftRight}) })
+	k3 := widget.NewButton("Left Alt", func() { bp.TypeKey(&fyne.KeyEvent{Name: desktop.KeyAltLeft}) })
+	k5 := widget.NewButton("Left Control", func() { bp.TypeKey(&fyne.KeyEvent{Name: desktop.KeyControlLeft}) })
+	k7 := widget.NewButton("Left Shift", func() { bp.TypeKey(&fyne.KeyEvent{Name: desktop.KeyShiftLeft}) })
+	//k8 := widget.NewButton("Grave (`)", func() { bp.TypeKey(&fyne.KeyEvent{Name: fyne.KeyBackTick}) })
 	cont.AddObject(k1)
-	cont.AddObject(k2)
 	cont.AddObject(k3)
-	cont.AddObject(k4)
 	cont.AddObject(k5)
-	cont.AddObject(k6)
 	cont.AddObject(k7)
 	return cont
 }
@@ -56,7 +51,7 @@ func (bp *Page) createGrid() *fyne.Container {
 //Create the binding page popup
 func (bp *Page) Create(bid string) fyne.CanvasObject {
 	bp.dev = make(map[string]fyne.CanvasObject)
-	bp.dev["BL"] = widget.NewLabel(keys.CKIKeyNameFromASCII(bp.Bind.Bound))
+	bp.dev["BL"] = widget.NewLabel(keys.CKIKeyNameFromKC(bp.Bind.Bound))
 	pop := widget.NewVBox(bp.dev["BL"], bp.createGrid())
 	bp.window.Canvas().SetOnTypedKey(bp.TypeKey)
 	return pop
