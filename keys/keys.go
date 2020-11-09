@@ -28,7 +28,7 @@ func init() {
 
 //CKIFyneKeyMap Control Keys interop
 func CKIFyneKeyMap(e fyne.KeyName) uint16 {
-	if val, ok := KCToASCII[FyneToKC[e]]; ok {
+	if val, ok := FyneToKC[e]; ok {
 		return uint16(val)
 	}
 	return 0
