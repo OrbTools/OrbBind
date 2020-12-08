@@ -6,7 +6,6 @@ import (
 	"fyne.io/fyne/layout"
 	"fyne.io/fyne/widget"
 	"github.com/minizbot2012/orbbind/keys"
-	"github.com/minizbot2012/orbbind/ui/baseui"
 )
 
 //BindingInfo Genral data to use in a channel
@@ -17,7 +16,6 @@ type BindingInfo struct {
 
 //Page Binding UI
 type Page struct {
-	baseui.DialogPage
 	dev    map[string]fyne.CanvasObject
 	Bind   BindingInfo
 	window fyne.Window
@@ -59,7 +57,7 @@ func (bp *Page) Create(bid string) fyne.CanvasObject {
 
 //NewBindPage Create a new bind popup
 func NewBindPage(bid int, w fyne.Window, def uint16) *Page {
-	p := &Page{}
+	p := new(Page)
 	p.window = w
 	p.Bind.Bindid = bid
 	p.Bind.Bound = def

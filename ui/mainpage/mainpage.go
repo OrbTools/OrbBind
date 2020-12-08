@@ -8,13 +8,11 @@ import (
 	"fyne.io/fyne/layout"
 	"fyne.io/fyne/widget"
 	"github.com/minizbot2012/orbbind/keymap/orbweaver"
-	"github.com/minizbot2012/orbbind/ui/baseui"
 	"github.com/minizbot2012/orbbind/ui/bind"
 )
 
 //Page is a basic page
 type Page struct {
-	baseui.PageWithBindings
 	binds  *orbweaver.PKM
 	dev    map[string]fyne.CanvasObject
 	parent fyne.Window
@@ -53,7 +51,7 @@ func (mp *Page) Create() *widget.TabItem {
 
 //NewMainPage Creates a new main page
 func NewMainPage(parent fyne.Window, pkm *orbweaver.PKM) *Page {
-	mp := &Page{}
+	mp := new(Page)
 	mp.binds = pkm
 	mp.parent = parent
 	return mp
