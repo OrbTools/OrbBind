@@ -8,13 +8,11 @@ import (
 	"fyne.io/fyne/layout"
 	"fyne.io/fyne/widget"
 	"github.com/minizbot2012/orbbind/keymap/orbweaver"
-	"github.com/minizbot2012/orbbind/ui/baseui"
 	"github.com/minizbot2012/orbbind/ui/bind"
 )
 
 //Page Overweave side button configs
 type Page struct {
-	baseui.PageWithBindings
 	binds  *orbweaver.PKM
 	dev    map[string]fyne.CanvasObject
 	parent fyne.Window
@@ -46,7 +44,7 @@ func (p *Page) Create() *widget.TabItem {
 
 //NewSidePage Creates a new side configuration page
 func NewSidePage(parent fyne.Window, pkm *orbweaver.PKM) *Page {
-	p := &Page{}
+	p := new(Page)
 	p.binds = pkm
 	p.parent = parent
 	return p

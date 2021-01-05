@@ -21,7 +21,7 @@ func SaveIntoKeymap(mapped *PKM, file fyne.URIWriteCloser) {
 
 //LoadFile loads an orb
 func LoadFile(file fyne.URIReadCloser) *PKM {
-	mapped := &PKM{}
+	mapped := new(PKM)
 	binary.Read(file, binary.LittleEndian, mapped)
 	file.Close()
 	return mapped

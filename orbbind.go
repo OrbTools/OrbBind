@@ -16,7 +16,7 @@ func main() {
 	window := ap.NewWindow("Orbweaver Rebinding")
 	window.SetMaster()
 
-	omap := &orbweaver.PKM{}
+	omap := new(orbweaver.PKM)
 	pages := make(map[string]baseui.PageWithBindings)
 	pages["main"] = mainpage.NewMainPage(window, omap)
 	pages["side"] = sidepage.NewSidePage(window, omap)
