@@ -3,7 +3,7 @@ package baseui
 import (
 	"fyne.io/fyne"
 	"fyne.io/fyne/widget"
-	"github.com/minizbot2012/orbbind/keymap/orbweaver"
+	"github.com/OrbTools/OrbBind/keymap/orbweaver"
 )
 
 //BasicPage creates a very basic Page
