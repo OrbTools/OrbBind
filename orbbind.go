@@ -5,10 +5,10 @@ import (
 	"fyne.io/fyne/app"
 	"fyne.io/fyne/dialog"
 	"fyne.io/fyne/widget"
-	"github.com/OrbTools/OrbBind/keymap/orbweaver"
 	"github.com/OrbTools/OrbBind/ui/baseui"
 	"github.com/OrbTools/OrbBind/ui/mainpage"
 	"github.com/OrbTools/OrbBind/ui/sidepage"
+	"github.com/OrbTools/OrbCommon/devices/orbweaver"
 )
 
 func main() {
@@ -31,7 +31,7 @@ func main() {
 				return
 			}
 			if writer != nil {
-				orbweaver.SaveIntoKeymap(omap, writer)
+				orbweaver.SavePKMKeymap(omap, writer)
 			}
 		}, window)
 	}), fyne.NewMenuItem("Load", func() {
@@ -41,7 +41,7 @@ func main() {
 				return
 			}
 			if reader != nil {
-				omap = orbweaver.LoadFile(reader)
+				omap = orbweaver.LoadPKMKeymap(reader)
 				pages["main"].SetBindings(omap)
 				pages["side"].SetBindings(omap)
 			}

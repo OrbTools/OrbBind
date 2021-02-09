@@ -7,8 +7,8 @@ import (
 	"fyne.io/fyne/dialog"
 	"fyne.io/fyne/layout"
 	"fyne.io/fyne/widget"
-	"github.com/OrbTools/OrbBind/keymap/orbweaver"
 	"github.com/OrbTools/OrbBind/ui/bind"
+	"github.com/OrbTools/OrbCommon/devices/orbweaver"
 )
 
 //Page is a basic page
