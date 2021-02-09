@@ -5,10 +5,10 @@ import (
 	"fyne.io/fyne/app"
 	"fyne.io/fyne/dialog"
 	"fyne.io/fyne/widget"
-	"github.com/minizbot2012/orbbind/keymap/orbweaver"
-	"github.com/minizbot2012/orbbind/ui/baseui"
-	"github.com/minizbot2012/orbbind/ui/mainpage"
-	"github.com/minizbot2012/orbbind/ui/sidepage"
+	"github.com/OrbTools/OrbBind/keymap/orbweaver"
+	"github.com/OrbTools/OrbBind/ui/baseui"
+	"github.com/OrbTools/OrbBind/ui/mainpage"
+	"github.com/OrbTools/OrbBind/ui/sidepage"
 )
 
 func main() {
