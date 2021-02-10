@@ -42,8 +42,6 @@ func Generate(ui *gui.GUI, window fyne.Window, KBS reflect.Value) (*widget.TabCo
 						field := kb.FieldByName(pg.Hive)
 						if field.Kind() == reflect.Array {
 							field.Index(ky.KeyID).SetUint(uint64(bp.Bind.Bound))
-							println(field.Index(ky.KeyID).Uint())
-							println(ky.KeyID)
 						}
 					}
 				}
