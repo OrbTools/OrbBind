@@ -1,13 +1,12 @@
 package main
 
 import (
+	"reflect"
+
 	"fyne.io/fyne"
 	"fyne.io/fyne/app"
 	"fyne.io/fyne/dialog"
-	"fyne.io/fyne/widget"
-	"github.com/OrbTools/OrbBind/ui/baseui"
-	"github.com/OrbTools/OrbBind/ui/mainpage"
-	"github.com/OrbTools/OrbBind/ui/sidepage"
+	"github.com/OrbTools/OrbBind/ui/mui"
 	"github.com/OrbTools/OrbCommon/devices/orbweaver"
 )
 
@@ -17,10 +16,11 @@ func main() {
 	window.SetMaster()
 
 	omap := new(orbweaver.PKM)
-	pages := make(map[string]baseui.PageWithBindings)
-	pages["main"] = mainpage.NewMainPage(window, omap)
-	pages["side"] = sidepage.NewSidePage(window, omap)
-	tabs := widget.NewTabContainer(pages["main"].Create(), pages["side"].Create())
+	//pages := make(map[string]baseui.PageWithBindings)
+	//pages["main"] = mainpage.NewMainPage(window, omap)
+	//pages["side"] = sidepage.NewSidePage(window, omap)
+	tabs, setter := mui.Generate(orbweaver.GUI, window, reflect.ValueOf(omap))
+	//tabs := widget.NewTabContainer(pages["main"].Create(), pages["side"].Create())
 	tabs.Resize(fyne.NewSize(640, 480))
 	main := tabs
 	window.Resize(fyne.NewSize(640, 500))
@@ -41,9 +41,9 @@ func main() {
 				return
 			}
 			if reader != nil {
-				omap = orbweaver.LoadPKMKeymap(reader)
-				pages["main"].SetBindings(omap)
-				pages["side"].SetBindings(omap)
+				setter(reflect.ValueOf(orbweaver.LoadPKMKeymap(reader)))
+				//				pages["main"].SetBindings(omap)
+				//				pages["side"].SetBindings(omap)
 			}
 		}, window)
 	})))
