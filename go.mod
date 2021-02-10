@@ -4,7 +4,7 @@ go 1.15
 
 require (
 	fyne.io/fyne v1.4.3
-	github.com/OrbTools/OrbCommon v0.0.0-20210209215542-e5d03278f0d5
+	github.com/OrbTools/OrbCommon v0.0.0-20210209235647-67bb6503d1dd
 	github.com/go-gl/glfw/v3.3/glfw v0.0.0-20201108214237-06ea97f0c265 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/srwiley/oksvg v0.0.0-20210209000435-a757b9cbd472 // indirect
