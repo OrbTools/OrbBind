@@ -41,7 +41,8 @@ func main() {
 				return
 			}
 			if reader != nil {
-				setter(reflect.ValueOf(orbweaver.LoadPKMKeymap(reader)))
+				omap := orbweaver.LoadPKMKeymap(reader)
+				setter(reflect.ValueOf(omap))
 				//				pages["main"].SetBindings(omap)
 				//				pages["side"].SetBindings(omap)
 			}
