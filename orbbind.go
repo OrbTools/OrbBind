@@ -3,9 +3,9 @@ package main
 import (
 	"reflect"
 
-	"fyne.io/fyne"
-	"fyne.io/fyne/app"
-	"fyne.io/fyne/dialog"
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/dialog"
 	"github.com/OrbTools/OrbBind/ui/mui"
 	"github.com/OrbTools/OrbCommon/devices/orbweaver"
 )
