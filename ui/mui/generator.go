@@ -4,18 +4,19 @@ import (
 	"math"
 	"reflect"
 
-	"fyne.io/fyne"
-	"fyne.io/fyne/dialog"
-	"fyne.io/fyne/layout"
-	"fyne.io/fyne/widget"
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/dialog"
+	"fyne.io/fyne/v2/layout"
+	"fyne.io/fyne/v2/widget"
 	"github.com/OrbTools/OrbBind/ui/bind"
 	"github.com/OrbTools/OrbCommon/gui"
 )
 
 //Generate creates a GUI from definition
-func Generate(ui *gui.GUI, window fyne.Window, KBS reflect.Value) (*widget.TabContainer, func(reflect.Value)) {
+func Generate(ui *gui.GUI, window fyne.Window, KBS reflect.Value) (*container.AppTabs, func(reflect.Value)) {
 	keybind := KBS
-	tui := widget.NewTabContainer()
+	tui := container.NewAppTabs()
 	for _, page := range ui.Pages[:] {
 		var cont *fyne.Container
 		pg := page
@@ -49,7 +50,7 @@ func Generate(ui *gui.GUI, window fyne.Window, KBS reflect.Value) (*widget.TabCo
 			})
 			cont.AddObject(btn)
 		}
-		ti := widget.NewTabItem(page.Name, cont)
+		ti := container.NewTabItem(page.Name, cont)
 		tui.Append(ti)
 	}
 	return tui, func(v reflect.Value) { keybind = v }

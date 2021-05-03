@@ -2,8 +2,8 @@ package keys
 
 // Common Interface 2, natified go
 import (
-	"fyne.io/fyne"
-	"fyne.io/fyne/driver/desktop"
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/driver/desktop"
 )
 
 //ASCIIToKC -- ASCII Value to a KBD Scancode

@@ -1,10 +1,11 @@
 package bind
 
 import (
-	"fyne.io/fyne"
-	"fyne.io/fyne/driver/desktop"
-	"fyne.io/fyne/layout"
-	"fyne.io/fyne/widget"
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/driver/desktop"
+	"fyne.io/fyne/v2/layout"
+	"fyne.io/fyne/v2/widget"
+	"fyne.io/fyne/v2/container"
 	"github.com/OrbTools/OrbBind/keys"
 )
 
@@ -50,7 +51,7 @@ func (bp *Page) createGrid() *fyne.Container {
 func (bp *Page) Create(bid string) fyne.CanvasObject {
 	bp.dev = make(map[string]fyne.CanvasObject)
 	bp.dev["BL"] = widget.NewLabel(keys.CKIKeyNameFromKC(bp.Bind.Bound))
-	pop := widget.NewVBox(bp.dev["BL"], bp.createGrid())
+	pop := container.NewVBox(bp.dev["BL"], bp.createGrid())
 	bp.window.Canvas().SetOnTypedKey(bp.TypeKey)
 	return pop
 }
