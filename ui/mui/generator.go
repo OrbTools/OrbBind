@@ -23,13 +23,11 @@ func Generate(ui *gui.GUI, window fyne.Window, KBS reflect.Value) (*container.Ap
 		switch page.Type {
 		case gui.PGrid:
 			{
-				cont = fyne.NewContainer()
-				cont.Layout = layout.NewGridLayout(int(math.Ceil(math.Sqrt(float64(len(page.Keys))))))
+				cont = container.New(layout.NewGridLayout(int(math.Ceil(math.Sqrt(float64(len(page.Keys)))))))
 			}
 		default:
 			{
-				cont = fyne.NewContainer()
-				cont.Layout = layout.NewGridLayout(int(math.Ceil(math.Sqrt(float64(len(page.Keys))))))
+				cont = container.New(layout.NewGridLayout(int(math.Ceil(math.Sqrt(float64(len(page.Keys)))))))
 			}
 		}
 		for _, key := range page.Keys[:] {
@@ -48,7 +46,7 @@ func Generate(ui *gui.GUI, window fyne.Window, KBS reflect.Value) (*container.Ap
 				}
 				dialog.ShowCustomConfirm("Bind", "Save", "Cancel", cont, ok, window)
 			})
-			cont.AddObject(btn)
+			cont.Add(btn)
 		}
 		ti := container.NewTabItem(page.Name, cont)
 		tui.Append(ti)
