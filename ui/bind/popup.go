@@ -2,10 +2,9 @@ package bind
 
 import (
 	"fyne.io/fyne/v2"
-	"fyne.io/fyne/v2/driver/desktop"
+	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/widget"
-	"fyne.io/fyne/v2/container"
 	"github.com/OrbTools/OrbBind/keys"
 )
 
@@ -24,33 +23,24 @@ type Page struct {
 
 //TypeKey event on key
 func (bp *Page) TypeKey(e *fyne.KeyEvent) {
-	bp.Bind.Bound = keys.CKIFyneKeyMap(e.Name)
-	kp := keys.CKIKeyNameFromKC(bp.Bind.Bound)
-	bp.dev["BL"].(*widget.Label).SetText(kp)
+	kp := keys.FyneToKeymap(e)
+	bp.Bind.Bound = kp.Evdev
+	bp.dev["BL"].(*widget.Label).SetText(kp.Code)
 }
 
 func (bp *Page) createGrid() *fyne.Container {
-	cont := fyne.NewContainerWithLayout(layout.NewGridLayoutWithColumns(4))
-	cont.AddObject(widget.NewButton("Clear", func() {
+	cont := container.New(layout.NewGridLayoutWithColumns(4))
+	cont.Add(widget.NewButton("Clear", func() {
 		bp.Bind.Bound = 0x0
-		bp.dev["BL"].(*widget.Label).SetText(keys.CKIKeyNameFromKC(bp.Bind.Bound))
+		bp.dev["BL"].(*widget.Label).SetText(keys.KeyFromEvdev(bp.Bind.Bound).Code)
 	}))
-	k1 := widget.NewButton("Tab", func() { bp.TypeKey(&fyne.KeyEvent{Name: fyne.KeyTab}) })
-	k3 := widget.NewButton("Left Alt", func() { bp.TypeKey(&fyne.KeyEvent{Name: desktop.KeyAltLeft}) })
-	k5 := widget.NewButton("Left Control", func() { bp.TypeKey(&fyne.KeyEvent{Name: desktop.KeyControlLeft}) })
-	k7 := widget.NewButton("Left Shift", func() { bp.TypeKey(&fyne.KeyEvent{Name: desktop.KeyShiftLeft}) })
-	//k8 := widget.NewButton("Grave (`)", func() { bp.TypeKey(&fyne.KeyEvent{Name: fyne.KeyBackTick}) })
-	cont.AddObject(k1)
-	cont.AddObject(k3)
-	cont.AddObject(k5)
-	cont.AddObject(k7)
 	return cont
 }
 
 //Create the binding page popup
 func (bp *Page) Create(bid string) fyne.CanvasObject {
 	bp.dev = make(map[string]fyne.CanvasObject)
-	bp.dev["BL"] = widget.NewLabel(keys.CKIKeyNameFromKC(bp.Bind.Bound))
+	bp.dev["BL"] = widget.NewLabel(keys.KeyFromEvdev(bp.Bind.Bound).Code)
 	pop := container.NewVBox(bp.dev["BL"], bp.createGrid())
 	bp.window.Canvas().SetOnTypedKey(bp.TypeKey)
 	return pop
