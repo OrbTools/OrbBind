@@ -16,8 +16,12 @@ func FyneToKeymap(e *fyne.KeyEvent) hid.Key {
 		return hid.GetMappingFromName(string(e.Name))
 	case fyne.KeyLeft, fyne.KeyRight, fyne.KeyUp, fyne.KeyDown:
 		return hid.GetMappingFromName("ARROW_" + strings.ToUpper(string(e.Name)))
-	case fyne.KeyBackspace, fyne.KeyBackslash, fyne.KeyEscape, fyne.KeySpace:
+	case fyne.KeyBackspace, fyne.KeyEscape, fyne.KeySpace:
 		return hid.GetMappingFromName(strings.ToUpper(string(e.Name)))
+	case fyne.KeyBackslash:
+		return hid.GetMappingFromName("BACKSLASH")
+	case fyne.KeyBackTick:
+		return hid.GetMappingFromName("BACKQUOTE")
 	case fyne.KeyMinus:
 		return hid.GetMappingFromName("MINUS")
 	case fyne.KeyEqual:
