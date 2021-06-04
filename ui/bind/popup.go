@@ -34,6 +34,9 @@ func (bp *Page) createGrid() *fyne.Container {
 		bp.Bind.Bound = 0x0
 		bp.dev["BL"].(*widget.Label).SetText(keys.KeyFromEvdev(bp.Bind.Bound).Code)
 	}))
+	cont.Add(widget.NewButton("TAB", func() {
+		bp.TypeKey(&fyne.KeyEvent{Name: fyne.KeyTab})
+	}))
 	return cont
 }
 
