@@ -14,7 +14,7 @@ import (
 )
 
 //Generate creates a GUI from definition
-func Generate(ui *gui.GUI, window fyne.Window, KBS reflect.Value) (*container.AppTabs, func(reflect.Value)) {
+func Generate(ui *gui.GUI, window fyne.Window, KBS reflect.Value) (*container.AppTabs, func(reflect.Value), func() reflect.Value) {
 	keybind := KBS
 	tui := container.NewAppTabs()
 	for _, page := range ui.Pages[:] {
@@ -51,5 +51,5 @@ func Generate(ui *gui.GUI, window fyne.Window, KBS reflect.Value) (*container.Ap
 		ti := container.NewTabItem(page.Name, cont)
 		tui.Append(ti)
 	}
-	return tui, func(v reflect.Value) { keybind = v }
+	return tui, func(v reflect.Value) { keybind = v }, func() reflect.Value { return keybind }
 }
