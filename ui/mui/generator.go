@@ -4,31 +4,30 @@ import (
 	"math"
 	"reflect"
 
-	"fyne.io/fyne"
-	"fyne.io/fyne/dialog"
-	"fyne.io/fyne/layout"
-	"fyne.io/fyne/widget"
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/dialog"
+	"fyne.io/fyne/v2/layout"
+	"fyne.io/fyne/v2/widget"
 	"github.com/OrbTools/OrbBind/ui/bind"
 	"github.com/OrbTools/OrbCommon/gui"
 )
 
 //Generate creates a GUI from definition
-func Generate(ui *gui.GUI, window fyne.Window, KBS reflect.Value) (*widget.TabContainer, func(reflect.Value)) {
+func Generate(ui *gui.GUI, window fyne.Window, KBS reflect.Value) (*container.AppTabs, func(reflect.Value), func() reflect.Value) {
 	keybind := KBS
-	tui := widget.NewTabContainer()
+	tui := container.NewAppTabs()
 	for _, page := range ui.Pages[:] {
 		var cont *fyne.Container
 		pg := page
 		switch page.Type {
 		case gui.PGrid:
 			{
-				cont = fyne.NewContainer()
-				cont.Layout = layout.NewGridLayout(int(math.Ceil(math.Sqrt(float64(len(page.Keys))))))
+				cont = container.New(layout.NewGridLayout(int(math.Ceil(math.Sqrt(float64(len(page.Keys)))))))
 			}
 		default:
 			{
-				cont = fyne.NewContainer()
-				cont.Layout = layout.NewGridLayout(int(math.Ceil(math.Sqrt(float64(len(page.Keys))))))
+				cont = container.New(layout.NewGridLayout(int(math.Ceil(math.Sqrt(float64(len(page.Keys)))))))
 			}
 		}
 		for _, key := range page.Keys[:] {
@@ -47,10 +46,10 @@ func Generate(ui *gui.GUI, window fyne.Window, KBS reflect.Value) (*widget.TabCo
 				}
 				dialog.ShowCustomConfirm("Bind", "Save", "Cancel", cont, ok, window)
 			})
-			cont.AddObject(btn)
+			cont.Add(btn)
 		}
-		ti := widget.NewTabItem(page.Name, cont)
+		ti := container.NewTabItem(page.Name, cont)
 		tui.Append(ti)
 	}
-	return tui, func(v reflect.Value) { keybind = v }
+	return tui, func(v reflect.Value) { keybind = v }, func() reflect.Value { return keybind }
 }
