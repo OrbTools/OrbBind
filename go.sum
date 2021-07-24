@@ -1,8 +1,8 @@
 fyne.io/fyne/v2 v2.0.3 h1:qzd2uLLrAVrNeqnLY44QZCsMxZwjoo1my+lMzHicMXY=
 fyne.io/fyne/v2 v2.0.3/go.mod h1:nNpgL7sZkDVLraGtQII2ArNRnnl6kHup/KfQRxIhbvs=
 github.com/Kodeworks/golang-image-ico v0.0.0-20141118225523-73f0f4cfade9/go.mod h1:7uhhqiBaR4CpN0k9rMjOtjpcfGd6DG2m04zQxKnWQ0I=
-github.com/OrbTools/OrbCommon v0.0.0-20210604213605-2c1ec68f6f91 h1:zsCP3Xou+cciiCjs/hTT5Ecr9WT1X0mIsfX4MR0nYW8=
-github.com/OrbTools/OrbCommon v0.0.0-20210604213605-2c1ec68f6f91/go.mod h1:8HEhD7wF9Fqritt/jYxDmjbxEScWhFfVajdYdPO5Y14=
+github.com/OrbTools/OrbCommon v0.0.0-20210724065833-4ff2abe0a12c h1:oTZtQVfLPB3ef+m8NVY8pnvAZgrvMRyr6u21HdkRa9I=
+github.com/OrbTools/OrbCommon v0.0.0-20210724065833-4ff2abe0a12c/go.mod h1:8HEhD7wF9Fqritt/jYxDmjbxEScWhFfVajdYdPO5Y14=
 github.com/akavel/rsrc v0.8.0/go.mod h1:uLoCtb9J+EyAqh+26kdrTgmzRBFPGOolLWKpdxkKq+c=
 github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ33E=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
