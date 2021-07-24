@@ -3,9 +3,9 @@ package main
 import (
 	"reflect"
 
-	"fyne.io/fyne"
-	"fyne.io/fyne/app"
-	"fyne.io/fyne/dialog"
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/dialog"
 	"github.com/OrbTools/OrbBind/ui/mui"
 	"github.com/OrbTools/OrbCommon/devices/orbweaver"
 )
@@ -19,7 +19,7 @@ func main() {
 	//pages := make(map[string]baseui.PageWithBindings)
 	//pages["main"] = mainpage.NewMainPage(window, omap)
 	//pages["side"] = sidepage.NewSidePage(window, omap)
-	tabs, setter := mui.Generate(orbweaver.GUI, window, reflect.ValueOf(omap))
+	tabs, setter, getter := mui.Generate(orbweaver.GUI, window, reflect.ValueOf(omap))
 	//tabs := widget.NewTabContainer(pages["main"].Create(), pages["side"].Create())
 	tabs.Resize(fyne.NewSize(640, 480))
 	main := tabs
@@ -31,7 +31,7 @@ func main() {
 				return
 			}
 			if writer != nil {
-				orbweaver.SavePKMKeymap(omap, writer)
+				orbweaver.SavePKMKeymap(getter().Interface(), writer)
 			}
 		}, window)
 	}), fyne.NewMenuItem("Load", func() {
@@ -43,8 +43,6 @@ func main() {
 			if reader != nil {
 				omap := orbweaver.LoadPKMKeymap(reader)
 				setter(reflect.ValueOf(omap))
-				//				pages["main"].SetBindings(omap)
-				//				pages["side"].SetBindings(omap)
 			}
 		}, window)
 	})))
