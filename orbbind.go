@@ -7,7 +7,7 @@ import (
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/dialog"
 	"github.com/OrbTools/OrbBind/ui/mui"
-	"github.com/OrbTools/OrbCommon/devices/orbweaver"
+	"github.com/OrbTools/OrbCommon/devices"
 )
 
 func main() {
@@ -15,11 +15,11 @@ func main() {
 	window := ap.NewWindow("Orbweaver Rebinding")
 	window.SetMaster()
 
-	omap := new(orbweaver.PKM)
+	omap := new(devices.KeyMap)
 	//pages := make(map[string]baseui.PageWithBindings)
 	//pages["main"] = mainpage.NewMainPage(window, omap)
 	//pages["side"] = sidepage.NewSidePage(window, omap)
-	tabs, setter, getter := mui.Generate(orbweaver.GUI, window, reflect.ValueOf(omap))
+	tabs, setter, getter := mui.Generate(devices.DeviceTypes["orbweaver"], window, reflect.ValueOf(omap))
 	//tabs := widget.NewTabContainer(pages["main"].Create(), pages["side"].Create())
 	tabs.Resize(fyne.NewSize(640, 480))
 	main := tabs
@@ -31,7 +31,7 @@ func main() {
 				return
 			}
 			if writer != nil {
-				orbweaver.SavePKMKeymap(getter().Interface(), writer)
+				devices.SaveKeymap(writer, getter().Interface())
 			}
 		}, window)
 	}), fyne.NewMenuItem("Load", func() {
@@ -41,7 +41,7 @@ func main() {
 				return
 			}
 			if reader != nil {
-				omap := orbweaver.LoadPKMKeymap(reader)
+				omap := devices.LoadKeymap(reader, devices.DeviceTypes["orbweaver"])
 				setter(reflect.ValueOf(omap))
 			}
 		}, window)
