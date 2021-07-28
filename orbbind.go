@@ -16,6 +16,7 @@ func main() {
 	window.SetMaster()
 
 	omap := new(devices.KeyMap)
+	omap.Keymap = make([]uint16, devices.DeviceTypes["orbweaver"].NumKeys)
 	//pages := make(map[string]baseui.PageWithBindings)
 	//pages["main"] = mainpage.NewMainPage(window, omap)
 	//pages["side"] = sidepage.NewSidePage(window, omap)
