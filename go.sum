@@ -1,8 +1,6 @@
 fyne.io/fyne/v2 v2.0.3 h1:qzd2uLLrAVrNeqnLY44QZCsMxZwjoo1my+lMzHicMXY=
 fyne.io/fyne/v2 v2.0.3/go.mod h1:nNpgL7sZkDVLraGtQII2ArNRnnl6kHup/KfQRxIhbvs=
 github.com/Kodeworks/golang-image-ico v0.0.0-20141118225523-73f0f4cfade9/go.mod h1:7uhhqiBaR4CpN0k9rMjOtjpcfGd6DG2m04zQxKnWQ0I=
-github.com/OrbTools/OrbCommon v0.0.0-20210728064103-00fcb730cbf9 h1:6xeK3YlRK/mt8HQ09LMqgh53YLyZVkn9GH5dWcWV5vE=
-github.com/OrbTools/OrbCommon v0.0.0-20210728064103-00fcb730cbf9/go.mod h1:LhYZl/HJpFZqHa/3CD/nxsXAZtMeVRinztSngSFMCDM=
 github.com/OrbTools/OrbCommon v0.0.0-20210728065050-8432fa48d1c4 h1:tLKJu4PeL96/1FyzXlVden50jX69tIkJODTLx35fqrg=
 github.com/OrbTools/OrbCommon v0.0.0-20210728065050-8432fa48d1c4/go.mod h1:LhYZl/HJpFZqHa/3CD/nxsXAZtMeVRinztSngSFMCDM=
 github.com/akavel/rsrc v0.8.0/go.mod h1:uLoCtb9J+EyAqh+26kdrTgmzRBFPGOolLWKpdxkKq+c=
