@@ -6,9 +6,10 @@ import (
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/driver/desktop"
 	"github.com/OrbTools/OrbCommon/hid"
+	"github.com/OrbTools/OrbCommon/hid/structs"
 )
 
-func FyneToKeymap(e *fyne.KeyEvent) hid.Key {
+func FyneToKeymap(e *fyne.KeyEvent) structs.Key {
 	switch e.Name {
 	case fyne.Key0, fyne.Key1, fyne.Key2, fyne.Key3, fyne.Key4, fyne.Key5, fyne.Key6, fyne.Key7, fyne.Key8, fyne.Key9:
 		return hid.GetMappingFromName("DIGIT" + string(e.Name))
@@ -50,6 +51,6 @@ func FyneToKeymap(e *fyne.KeyEvent) hid.Key {
 	//return hid.GetMappingFromName("USB_RESERVED")
 }
 
-func KeyFromEvdev(b uint16) hid.Key {
+func KeyFromEvdev(b uint16) structs.Key {
 	return hid.GetMappingFromLinux(b)
 }
