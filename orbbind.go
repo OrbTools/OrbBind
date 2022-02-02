@@ -24,6 +24,7 @@ func main() {
 		omap = new(structs.KeyMap)
 		omap.Device = dev
 		omap.Keymap = make([]uint16, devices.DeviceTypes[dev].NumKeys)
+		omap.Color = make([]byte, devices.DeviceTypes[dev].NumColor)
 		main, setter, getter = mui.Generate(devices.DeviceTypes[dev], window, reflect.ValueOf(omap))
 		window.SetContent(main)
 	}
