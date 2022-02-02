@@ -10,11 +10,11 @@ import (
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/widget"
 	"github.com/OrbTools/OrbBind/ui/bind"
-	"github.com/OrbTools/OrbCommon/devices"
+	"github.com/OrbTools/OrbCommon/devices/structs"
 )
 
 //Generate creates a GUI from definition
-func Generate(ui *devices.DeviceDef, window fyne.Window, KBS reflect.Value) (*container.AppTabs, func(reflect.Value), func() reflect.Value) {
+func Generate(ui *structs.DeviceDef, window fyne.Window, KBS reflect.Value) (*container.AppTabs, func(reflect.Value), func() reflect.Value) {
 	keybind := KBS
 	tui := container.NewAppTabs()
 	for _, page := range ui.GuiPages {

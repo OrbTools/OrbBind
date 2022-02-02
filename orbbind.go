@@ -5,26 +5,35 @@ import (
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/dialog"
 	"github.com/OrbTools/OrbBind/ui/mui"
 	"github.com/OrbTools/OrbCommon/devices"
+	"github.com/OrbTools/OrbCommon/devices/structs"
 )
 
 func main() {
 	ap := app.NewWithID("com.minizbot2012.orbbind")
-	window := ap.NewWindow("Orbweaver Rebinding")
+	window := ap.NewWindow("Generic Rebinding Utilities")
 	window.SetMaster()
 
-	omap := new(devices.KeyMap)
-	omap.Keymap = make([]uint16, devices.DeviceTypes["orbweaver"].NumKeys)
-	//pages := make(map[string]baseui.PageWithBindings)
-	//pages["main"] = mainpage.NewMainPage(window, omap)
-	//pages["side"] = sidepage.NewSidePage(window, omap)
-	tabs, setter, getter := mui.Generate(devices.DeviceTypes["orbweaver"], window, reflect.ValueOf(omap))
-	//tabs := widget.NewTabContainer(pages["main"].Create(), pages["side"].Create())
-	tabs.Resize(fyne.NewSize(640, 480))
-	main := tabs
+	omap := new(structs.KeyMap)
+	//omap.Keymap = make([]uint16, devices.DeviceTypes["orbweaver"].NumKeys)
+	//tabs, setter, getter := mui.Generate(devices.DeviceTypes["orbweaver"], window, reflect.ValueOf(omap))
+	main, setter, getter := container.NewAppTabs(), func(reflect.Value) {}, func() reflect.Value { return reflect.ValueOf(0) }
 	window.Resize(fyne.NewSize(640, 500))
+	devs := fyne.NewMenu("Devices")
+	SetDevice := func(dev string) {
+		omap = new(structs.KeyMap)
+		omap.Keymap = make([]uint16, devices.DeviceTypes[dev].NumKeys)
+		main, setter, getter = mui.Generate(devices.DeviceTypes[dev], window, reflect.ValueOf(omap))
+		window.SetContent(main)
+	}
+	for k := range devices.DeviceTypes {
+		devs.Items = append(devs.Items, fyne.NewMenuItem(k, func() {
+			SetDevice(k)
+		}))
+	}
 	mainMenu := fyne.NewMainMenu(fyne.NewMenu("File", fyne.NewMenuItem("Save", func() {
 		dialog.ShowFileSave(func(writer fyne.URIWriteCloser, err error) {
 			if err != nil {
@@ -42,11 +51,11 @@ func main() {
 				return
 			}
 			if reader != nil {
-				omap := devices.LoadKeymap(reader, devices.DeviceTypes["orbweaver"])
+				omap := devices.LoadKeymap(reader)
 				setter(reflect.ValueOf(omap))
 			}
 		}, window)
-	})))
+	})), devs)
 	window.SetMainMenu(mainMenu)
 
 	window.SetContent(main)
