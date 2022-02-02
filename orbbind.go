@@ -28,7 +28,7 @@ func main() {
 		main, setter, getter = mui.Generate(devices.DeviceTypes[dev], window, reflect.ValueOf(omap))
 		window.SetContent(main)
 	}
-	SetDevice("orbweaver")
+
 	for k := range devices.DeviceTypes {
 		devs.Items = append(devs.Items, fyne.NewMenuItem(k, func() {
 			SetDevice(k)
