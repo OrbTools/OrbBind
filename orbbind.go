@@ -16,19 +16,18 @@ func main() {
 	ap := app.NewWithID("com.minizbot2012.orbbind")
 	window := ap.NewWindow("Generic Rebinding Utilities")
 	window.SetMaster()
-
 	omap := new(structs.KeyMap)
-	//omap.Keymap = make([]uint16, devices.DeviceTypes["orbweaver"].NumKeys)
-	//tabs, setter, getter := mui.Generate(devices.DeviceTypes["orbweaver"], window, reflect.ValueOf(omap))
 	main, setter, getter := container.NewAppTabs(), func(reflect.Value) {}, func() reflect.Value { return reflect.ValueOf(0) }
 	window.Resize(fyne.NewSize(640, 500))
 	devs := fyne.NewMenu("Devices")
 	SetDevice := func(dev string) {
 		omap = new(structs.KeyMap)
+		omap.Device = dev
 		omap.Keymap = make([]uint16, devices.DeviceTypes[dev].NumKeys)
 		main, setter, getter = mui.Generate(devices.DeviceTypes[dev], window, reflect.ValueOf(omap))
 		window.SetContent(main)
 	}
+	SetDevice("orbweaver")
 	for k := range devices.DeviceTypes {
 		devs.Items = append(devs.Items, fyne.NewMenuItem(k, func() {
 			SetDevice(k)
@@ -52,12 +51,16 @@ func main() {
 			}
 			if reader != nil {
 				omap := devices.LoadKeymap(reader)
+				if omap.Device != "" {
+					SetDevice(omap.Device)
+				} else {
+					SetDevice("orbweaver")
+				}
 				setter(reflect.ValueOf(omap))
 			}
 		}, window)
 	})), devs)
 	window.SetMainMenu(mainMenu)
-
 	window.SetContent(main)
 	window.ShowAndRun()
 }
