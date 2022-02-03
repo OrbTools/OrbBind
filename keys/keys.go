@@ -21,6 +21,8 @@ func FyneToKeymap(e *fyne.KeyEvent) structs.Key {
 		return hid.GetMappingFromName(strings.ToUpper(string(e.Name)))
 	case fyne.KeyBackslash:
 		return hid.GetMappingFromName("BACKSLASH")
+	case fyne.KeySlash:
+		return hid.GetMappingFromName("SLASH")
 	case fyne.KeyBackTick:
 		return hid.GetMappingFromName("BACKQUOTE")
 	case fyne.KeyMinus:
@@ -47,6 +49,7 @@ func FyneToKeymap(e *fyne.KeyEvent) structs.Key {
 		return hid.GetMappingFromName("TAB")
 	case fyne.KeyComma:
 		return hid.GetMappingFromName("COMMA")
+		fyne.Key
 	default:
 		return hid.GetMappingFromName("US_" + strings.ToUpper(string(e.Name)))
 	}
