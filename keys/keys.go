@@ -49,7 +49,6 @@ func FyneToKeymap(e *fyne.KeyEvent) structs.Key {
 		return hid.GetMappingFromName("TAB")
 	case fyne.KeyComma:
 		return hid.GetMappingFromName("COMMA")
-		fyne.Key
 	default:
 		return hid.GetMappingFromName("US_" + strings.ToUpper(string(e.Name)))
 	}
